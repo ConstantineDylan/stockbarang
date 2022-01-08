@@ -144,6 +144,7 @@ require 'cek.php';
                                             <th>SKU</th>
                                             <th>Product Name</th>
                                             <th>Ammount (kg)</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <!-- <tfoot>
@@ -164,13 +165,84 @@ require 'cek.php';
                                                 $sku = $data['sku'];
                                                 $productname = $data['productname'];
                                                 $ammount = $data['ammount'];
-                                            
                                         ?>
+
                                         <tr>
                                             <td><?=$sku;?></td>
                                             <td><?=$productname;?></td>
                                             <td><?=$ammount;?></td>
-                                        </tr>       
+                                            <td>
+                                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal<?=$sku;?>">
+                                                    Edit
+                                                </button>
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal<?=$sku;?>">
+                                                    Delete
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        
+
+                                            <!-- Edit Modal -->
+                                            <div class="modal fade" id="editModal<?=$sku;?>">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Edit Barang</h4>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <form method='post'>
+                                                            <div class="modal-body">
+                                                                <input type='text' name='productname' value='<?=$productname;?>' class='form-control'>
+                                                                <br></br>
+                                                                <input type='number' name='ammount' value='<?=$ammount;?>' class='form-control'>
+                                                                <input type='hidden' name='sku' value='<?=$sku;?>'>               
+                                                            </div>
+
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <button type='submit' class='btn btn-primary' name='updatebarang'>Submit</button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+
+                                            <!-- Delete Modal -->
+                                            <div class="modal fade" id="deleteModal<?=$sku;?>">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+
+                                                        <!-- Modal Header -->
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Delete barang?</h4>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                        </div>
+
+                                                        <!-- Modal body -->
+                                                        <form method='post'>
+                                                            <div class="modal-body">
+                                                                Apakah anda yakin ingin menghapus <b><?=$productname;?></b> dari database?
+                                                                <input type='hidden' name='sku' value='<?=$sku;?>'>
+                                                                <br>              
+                                                            </div>
+
+                                                            <!-- Modal footer -->
+                                                            <div class="modal-footer">
+                                                                <button type='submit' class='btn btn-danger' name='deletebarang'>Delete</button>
+                                                            </div>
+                                                        </form>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         <?php
                                             };
                                         ?>  
@@ -206,31 +278,31 @@ require 'cek.php';
 
     <!-- The Modal -->
     <div class="modal fade" id="myModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-dialog">
+            <div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Tambah Barang</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Tambah Barang</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <form method='post'>
+                    <div class="modal-body">
+                        <input type='text' name='namabarang' placeholder='Nama Barang' class='form-control'>
+                        <br></br>
+                        <input type='number' name='stock' placeholder='Jumlah Stock' class='form-control'>               
+                    </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type='submit' class='btn btn-primary' name='addnewbarang'>Submit</button>
+                    </div>
+                </form>
+
             </div>
-
-            <!-- Modal body -->
-            <form method='post'>
-                <div class="modal-body">
-                    <input type='text' name='namabarang' placeholder='Nama Barang' class='form-control'>
-                    <br></br>
-                    <input type='number' name='stock' placeholder='Jumlah Stock' class='form-control'>               
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type='submit' class='btn btn-primary' name='addnewbarang'>Submit</button>
-                </div>
-            </form>
-
         </div>
-    </div>
     </div>
 
 </html>

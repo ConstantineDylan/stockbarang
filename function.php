@@ -20,4 +20,33 @@
         }
     }
 
+
+    //update info barang
+    if(isset($_POST['updatebarang'])){
+        $productname = $_POST['productname'];
+        $ammount = $_POST['ammount'];   
+        $sku = $_POST['sku'];
+
+        $query = "UPDATE stocks set productname='$productname', ammount='$ammount' WHERE sku='$sku'";
+        $updatetable = mysqli_query($conn,$query);
+        if($updatetable){
+            header('location:index.php');
+        } else {
+            header('location:index.php');
+        }
+    }
+
+
+    //Delete barang
+    if(isset($_POST['deletebarang'])){
+        $sku = $_POST['sku'];
+
+        $query = "DELETE FROM stocks WHERE sku='$sku'";
+        $deleteitem = mysqli_query($conn,$query);
+        if($deleteitem){
+            header('location:index.php');
+        } else {
+            header('location:index.php');
+        }
+    }
 ?>
