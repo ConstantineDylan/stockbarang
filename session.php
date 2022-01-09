@@ -140,10 +140,11 @@ require 'cek.php';
                                     <thead>
                                         <tr>
                                             <th>SessionID</th>
-                                            <th>CustomerID</th>
+                                            <th>Customer Name</th>
                                             <th>date</th>
                                             <th>starttime</th>
                                             <th>endtime</th>
+                                            <th>Logs</th>
                                         </tr>
                                     </thead>
                                     <!-- <tfoot>
@@ -158,12 +159,24 @@ require 'cek.php';
                                     </tfoot> -->
                                     <tbody>
                                         <?php
-                                            $query = "SELECT * FROM chat_sessions WHERE customerid IN
-                                                        (SELECT customerid FROM customers WHERE ownerid='$ownerid')";
+                                            $query = "SELECT 
+                                                        cs.sessionid,
+                                                        cs.customerid,
+                                                        c.customername,
+                                                        cs.date,
+                                                        cs.starttime,
+                                                        cs.endtime 
+                                                    FROM chat_sessions AS cs
+                                                    JOIN customers as c ON cs.customerid = c.customerid
+                                                    WHERE cs.customerid IN
+                                                    (SELECT customerid FROM customers WHERE ownerid=1)
+                                                    GROUP BY cs.customerid";
+
                                             $getdata = mysqli_query($conn,$query);
                                             while($data = mysqli_fetch_array($getdata)){
                                                 $sessionid = $data['sessionid'];
                                                 $customerid = $data['customerid'];
+                                                $customername = $data['customername'];
                                                 $date = $data['date'];
                                                 $starttime = $data['starttime'];
                                                 $endtime = $data['endtime'];
@@ -171,7 +184,7 @@ require 'cek.php';
 
                                         <tr>
                                             <td><?=$sessionid;?></td>
-                                            <td><?=$customerid;?></td>
+                                            <td><?=$customername;?></td>
                                             <td><?=$date;?></td>
                                             <td><?=$starttime;?></td>
                                             <td><?=$endtime;?></td>
