@@ -142,6 +142,7 @@ require 'cek.php';
                                             <th>CustomerID</th>
                                             <th>Name</th>
                                             <th>Phone</th>
+                                            <th>Address</th>
                                         </tr>
                                     </thead>
                                     <!-- <tfoot>
@@ -161,11 +162,13 @@ require 'cek.php';
                                                 $customerid = $data['customerid'];
                                                 $customername = $data['customername'];
                                                 $phone = $data['phone'];
+                                                $address = $data['address'];
                                         ?>
                                         <tr>
                                             <td><?=$customerid;?></td>
                                             <td><?=$customername;?></td>
                                             <td><?=$phone;?></td>
+                                            <td><?=$address;?></td>
                                         </tr>
                                         <?php
                                             };
